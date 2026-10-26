@@ -1,0 +1,18 @@
+# Maven build output
+target/
+
+# IDE metadata
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.vscode/
+
+# Java and application logs
+*.class
+*.log
+logs/
+
+
+application.properties

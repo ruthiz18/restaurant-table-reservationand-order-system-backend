@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kigali.restaurant.rw.domain.Guest;
@@ -41,6 +42,12 @@ public class GuestController {
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllGuests(){
         List<Guest> guests = guestService.getAllGuest();
+        return new ResponseEntity<>(guests, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/by-last-name", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getGuestsByLastName(@RequestParam String lastName){
+        List<Guest> guests = guestService.getGuestsByLastName(lastName);
         return new ResponseEntity<>(guests, HttpStatus.OK);
     }
 

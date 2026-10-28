@@ -1,5 +1,7 @@
 package kigali.restaurant.rw.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kigali.restaurant.rw.domain.Reservation;
+import kigali.restaurant.rw.domain.ReservationStatus;
 import kigali.restaurant.rw.service.GuestService;
 import kigali.restaurant.rw.service.ReservationService;
 import kigali.restaurant.rw.service.WaiterService;
@@ -29,7 +32,6 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
 
-    // guestId and waiterId are query parameters (required on save, optional on update)
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveReservation(@RequestBody Reservation reservation,
@@ -39,13 +41,35 @@ public class ReservationController {
         if(returnedMessage.equals(ReservationService.SAVED)){
             return new ResponseEntity<>(returnedMessage, HttpStatus.CREATED);
         }
-        // missing fields, or a guest / waiter id that does not exist
         return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllReservations(){
         List<Reservation> reservations = reservationService.getAllReservations();
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/by-status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getReservationsByStatus(@RequestParam ReservationStatus status){
+        List<Reservation> reservations = reservationService.getReservationsByStatus(status);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/between", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getReservationsBetween(@RequestParam String start, @RequestParam String end){
+        LocalDate startDate;
+        LocalDate endDate;
+        try{
+            startDate = LocalDate.parse(start.trim());
+            endDate = LocalDate.parse(end.trim());
+        }catch(DateTimeParseException e){
+            return new ResponseEntity<>(ReservationService.INVALID_DATE, HttpStatus.BAD_REQUEST);
+        }
+        if(startDate.isAfter(endDate)){
+            return new ResponseEntity<>(ReservationService.START_AFTER_END, HttpStatus.BAD_REQUEST);
+        }
+        List<Reservation> reservations = reservationService.getReservationsBetween(startDate, endDate);
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 

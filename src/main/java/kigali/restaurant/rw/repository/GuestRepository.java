@@ -1,5 +1,6 @@
 package kigali.restaurant.rw.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,6 +12,8 @@ import kigali.restaurant.rw.domain.Guest;
 @Repository 
 public interface GuestRepository extends JpaRepository<Guest, UUID> {
 
-    //phone is the business key of a guest
     Optional<Guest> findByPhone(String phone);
+
+    //B1: same last name whatever the letter case, first name A to Z
+    List<Guest> findByLastNameIgnoreCaseOrderByFirstNameAsc(String lastName);
 }

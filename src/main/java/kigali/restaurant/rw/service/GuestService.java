@@ -48,6 +48,10 @@ public class GuestService{
         return guestRepo.findAll();
     }
 
+    public List<Guest> getGuestsByLastName(String lastName){
+        return guestRepo.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName.trim());
+    }
+
     public Guest getGuestById(UUID id){
         return guestRepo.findById(id).orElse(null);
     }

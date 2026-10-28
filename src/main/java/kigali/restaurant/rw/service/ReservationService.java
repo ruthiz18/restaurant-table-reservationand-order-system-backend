@@ -1,5 +1,6 @@
 package kigali.restaurant.rw.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +26,8 @@ public class ReservationService {
     public static final String FIELDS_REQUIRED = "reservation date, time slot and a party size greater than 0 are required";
     public static final String GUEST_ID_REQUIRED = "guest id is required";
     public static final String WAITER_ID_REQUIRED = "waiter is required";
+    public static final String INVALID_DATE = "start and end must be dates written as yyyy-MM-dd";
+    public static final String START_AFTER_END = "start date cannot be after the end date";
 
     @Autowired
     private ReservationRepository reservationRepo;
@@ -59,7 +62,6 @@ public class ReservationService {
         }
         reservation.setGuest(getGuest.get());
         reservation.setWaiter(getWaiter.get());
-        //a new reservation starts as REQUESTED unless a status is given
         if(reservation.getStatus() == null){
             reservation.setStatus(ReservationStatus.REQUESTED);
         }
@@ -69,6 +71,14 @@ public class ReservationService {
 
     public List<Reservation> getAllReservations(){
         return reservationRepo.findAll();
+    }
+
+    public List<Reservation> getReservationsByStatus(ReservationStatus status){
+        return reservationRepo.findByStatusOrderByReservationDateAsc(status);
+    }
+
+    public List<Reservation> getReservationsBetween(LocalDate start, LocalDate end){
+        return reservationRepo.findByReservationDateBetweenOrderByReservationDateAsc(start, end);
     }
 
     public Reservation getReservationById(UUID id){

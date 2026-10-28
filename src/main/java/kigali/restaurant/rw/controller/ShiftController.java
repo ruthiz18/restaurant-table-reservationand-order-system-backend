@@ -41,6 +41,13 @@ public class ShiftController {
         return new ResponseEntity<>(shifts, HttpStatus.OK);
     }
 
+    //C3: hsift nobody holds
+    @GetMapping(value = "/unused", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getUnusedShifts(){
+        List<Shift> shifts = shiftService.getUnusedShifts();
+        return new ResponseEntity<>(shifts, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getShiftById(@PathVariable UUID id){
         Shift shift = shiftService.getShiftById(id);
@@ -65,7 +72,7 @@ public class ShiftController {
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> deleteShift(@PathVariable UUID id){
         String returnedMessage = shiftService.deleteShift(id);
-        if(returnedMessage.equals(shiftService.NOT_FOUND)){
+        if(returnedMessage.equals(ShiftService.NOT_FOUND)){
             return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
         }
         if(returnedMessage.equals(ShiftService.IN_USE)){

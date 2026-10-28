@@ -41,6 +41,13 @@ public class DiningTableController {
         return new ResponseEntity<>(tables, HttpStatus.OK);
     }
 
+    //C2: free dining tables
+    @GetMapping(value = "/free", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getFreeDiningTables(){
+        List<DiningTable> tables = diningTableService.getFreeDiningTables();
+        return new ResponseEntity<>(tables, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getDiningTableById(@PathVariable UUID id){
         DiningTable table = diningTableService.getDiningTableById(id);

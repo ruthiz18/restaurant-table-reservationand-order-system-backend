@@ -33,7 +33,7 @@ public class Waiter {
     private String phone;
 
     @ManyToOne 
-    @JoinColumn (name="dinning_table_id")
+    @JoinColumn (name="dining_table_id")
     private DiningTable diningTable;
 
     @ManyToMany 
@@ -43,7 +43,7 @@ public class Waiter {
         inverseJoinColumns = @JoinColumn (name="shift_id")
     )
 
-    private List<Shift> shift = new ArrayList<>();
+    private List<Shift> shifts = new ArrayList<>();
 
     public UUID getId(){
         return id;
@@ -82,12 +82,11 @@ public class Waiter {
     }
 
     public List<Shift> getShifts(){
-        return shift;
+        return shifts;
     }
 
-    public void setShifts(List<Shift> shift){
-        this.shift = shift;
+    public void setShifts(List<Shift> shifts){
+        this.shifts = shifts;
     }
 
 }
-

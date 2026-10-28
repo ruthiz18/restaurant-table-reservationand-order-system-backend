@@ -23,4 +23,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, UUID>{
     //B3: both dates inclusive, ordered by date
     List<Reservation> findByReservationDateBetweenOrderByReservationDateAsc(LocalDate start, LocalDate end);
 
+    //D1: the waiter already has a reservation on that date that is not Withdrawn
+    boolean existsByWaiterIdAndReservationDateAndStatusNot(UUID waiterId, LocalDate reservationDate, ReservationStatus status);
 }

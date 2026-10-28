@@ -146,9 +146,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const data = pm.response.json();",
+                  "const rows = pm.response.json();",
                   "const map = {\"Morning\": \"shiftMorning\", \"Evening\": \"shiftEvening\", \"Weekend\": \"shiftWeekend\", \"Night\": \"shiftNight\"};",
-                  "data.forEach(x => { const v = map[x.name]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "rows.forEach(x => { const v = map[x.name]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -285,9 +285,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const data = pm.response.json();",
+                  "const rows = pm.response.json();",
                   "const map = {\"1\": \"table1\", \"2\": \"table2\", \"3\": \"table3\", \"4\": \"table4\"};",
-                  "data.forEach(x => { const v = map[x.tableNumber]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "rows.forEach(x => { const v = map[x.tableNumber]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -304,13 +304,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/save?diningTableId={{table1}}&shiftIds={{shiftMorning}}&shiftIds={{shiftEvening}}",
+              "raw": "{{baseUrl}}/api/waiters/save?diningTableId={{table1}}&shiftIds={{shiftMorning}}&shiftIds={{shiftEvening}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "save"
               ],
               "query": [
@@ -345,13 +345,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/save?diningTableId={{table2}}&shiftIds={{shiftWeekend}}",
+              "raw": "{{baseUrl}}/api/waiters/save?diningTableId={{table2}}&shiftIds={{shiftWeekend}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "save"
               ],
               "query": [
@@ -382,13 +382,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/save?diningTableId={{table3}}&shiftIds={{shiftEvening}}",
+              "raw": "{{baseUrl}}/api/waiters/save?diningTableId={{table3}}&shiftIds={{shiftEvening}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "save"
               ],
               "query": [
@@ -414,13 +414,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/all",
+              "raw": "{{baseUrl}}/api/waiters/all",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "all"
               ]
             }
@@ -431,9 +431,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const data = pm.response.json();",
+                  "const rows = pm.response.json();",
                   "const map = {\"Mutesi\": \"waiterMutesi\", \"Ingabire\": \"waiterIngabire\", \"Nkusi\": \"waiterNkusi\"};",
-                  "data.forEach(x => { const v = map[x.lastName]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "rows.forEach(x => { const v = map[x.lastName]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -597,9 +597,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const data = pm.response.json();",
+                  "const rows = pm.response.json();",
                   "const map = {\"0781234567\": \"guest0781234567\", \"0782345678\": \"guest0782345678\", \"0783456789\": \"guest0783456789\", \"0784567890\": \"guest0784567890\", \"0785678901\": \"guest0785678901\"};",
-                  "data.forEach(x => { const v = map[x.phone]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "rows.forEach(x => { const v = map[x.phone]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -1030,8 +1030,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const d = pm.response.json();",
-                  "if (d.length) pm.collectionVariables.set('shiftId', d[0].id);"
+                  "const rows = pm.response.json();",
+                  "const found = rows.find(x => x.name === 'Lunch');",
+                  "if (found) pm.collectionVariables.set('shiftId', found.id);"
                 ]
               }
             }
@@ -1157,8 +1158,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const d = pm.response.json();",
-                  "if (d.length) pm.collectionVariables.set('tableId', d[0].id);"
+                  "const rows = pm.response.json();",
+                  "const found = rows.find(x => x.tableNumber === 5);",
+                  "if (found) pm.collectionVariables.set('tableId', found.id);"
                 ]
               }
             }
@@ -1245,13 +1247,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/save?diningTableId={{table1}}&shiftIds={{shiftMorning}}",
+              "raw": "{{baseUrl}}/api/waiters/save?diningTableId={{table1}}&shiftIds={{shiftMorning}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "save"
               ],
               "query": [
@@ -1277,13 +1279,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/all",
+              "raw": "{{baseUrl}}/api/waiters/all",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "all"
               ]
             }
@@ -1294,8 +1296,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const d = pm.response.json();",
-                  "if (d.length) pm.collectionVariables.set('waiterId', d[0].id);"
+                  "const rows = pm.response.json();",
+                  "const found = rows.find(x => x.phone === '0788999999');",
+                  "if (found) pm.collectionVariables.set('waiterId', found.id);"
                 ]
               }
             }
@@ -1307,13 +1310,13 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/{{waiterId}}",
+              "raw": "{{baseUrl}}/api/waiters/{{waiterId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "{{waiterId}}"
               ]
             }
@@ -1330,13 +1333,13 @@
               }
             ],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/update/{{waiterId}}?diningTableId={{table1}}&shiftIds={{shiftMorning}}",
+              "raw": "{{baseUrl}}/api/waiters/update/{{waiterId}}?diningTableId={{table1}}&shiftIds={{shiftMorning}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "update",
                 "{{waiterId}}"
               ],
@@ -1363,13 +1366,13 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "{{baseUrl}}/api/waiter/delete/{{waiterId}}",
+              "raw": "{{baseUrl}}/api/waiters/delete/{{waiterId}}",
               "host": [
                 "{{baseUrl}}"
               ],
               "path": [
                 "api",
-                "waiter",
+                "waiters",
                 "delete",
                 "{{waiterId}}"
               ]
@@ -1431,8 +1434,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const d = pm.response.json();",
-                  "if (d.length) pm.collectionVariables.set('guestId', d[0].id);"
+                  "const rows = pm.response.json();",
+                  "const found = rows.find(x => x.phone === '0789999999');",
+                  "if (found) pm.collectionVariables.set('guestId', found.id);"
                 ]
               }
             }
@@ -1568,8 +1572,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const d = pm.response.json();",
-                  "if (d.length) pm.collectionVariables.set('reservationId', d[0].id);"
+                  "const rows = pm.response.json();",
+                  "const found = rows.find(x => x.reservationDate === '2026-12-01' && x.timeSlot === '12:00-14:00');",
+                  "if (found) pm.collectionVariables.set('reservationId', found.id);"
                 ]
               }
             }
@@ -1727,6 +1732,549 @@
                   "key": "end",
                   "value": "2026-10-31"
                 }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part C - JPQL with joins",
+      "item": [
+        {
+          "name": "C1 Waiters by shift (even)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/by-shift?name=even",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiters",
+                "by-shift"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "even"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "C1 Waiters by shift (WEEKEND, any letter case)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/by-shift?name=WEEKEND",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiters",
+                "by-shift"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "WEEKEND"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "C2 Free dining tables (expect table 4)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dining-tables/free",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dining-tables",
+                "free"
+              ]
+            }
+          }
+        },
+        {
+          "name": "C3 Unused shifts (expect Night)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shifts/unused",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shifts",
+                "unused"
+              ]
+            }
+          }
+        },
+        {
+          "name": "C4 Guests of waiter Mutesi",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/of-waiter/{{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "of-waiter",
+                "{{waiterMutesi}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "C4 Unknown waiter id (expect 404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/of-waiter/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "of-waiter",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part D - business rules",
+      "item": [
+        {
+          "name": "D1 Save in the past (expect 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0781234567}}&waiterId={{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0781234567}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2020-01-01\",\n  \"timeSlot\": \"12:00-14:00\",\n  \"partySize\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "D1 Save, body says SEATED but result is REQUESTED (expect 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0781234567}}&waiterId={{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0781234567}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-12-24\",\n  \"timeSlot\": \"19:00-21:00\",\n  \"partySize\": 4,\n  \"status\": \"SEATED\"\n}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.sendRequest(pm.variables.replaceIn('{{baseUrl}}/api/reservations/all'), (err, res) => {",
+                  "    const found = res.json().find(x => x.reservationDate === '2026-12-24' && x.timeSlot === '19:00-21:00');",
+                  "    if (found) pm.collectionVariables.set('reservationId', found.id);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "D1 Same waiter, same date (expect 409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0782345678}}&waiterId={{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0782345678}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-12-24\",\n  \"timeSlot\": \"12:00-14:00\",\n  \"partySize\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "D2 REQUESTED -> SEATED (expect 400)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}/status?status=SEATED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "SEATED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D2 REQUESTED -> ACCEPTED (expect 200)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}/status?status=ACCEPTED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ACCEPTED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D2 ACCEPTED -> SEATED (expect 200)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}/status?status=SEATED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "SEATED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D2 SEATED -> REQUESTED (expect 400 Cannot change status from SEATED to REQUESTED)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/{{reservationId}}/status?status=REQUESTED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "{{reservationId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "REQUESTED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D2 Unknown id (expect 404)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/00000000-0000-0000-0000-000000000000/status?status=ACCEPTED",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "00000000-0000-0000-0000-000000000000",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ACCEPTED"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D2 PUT update ignores status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/update/{{reservationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "update",
+                "{{reservationId}}"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-12-24\",\n  \"timeSlot\": \"19:00-21:00\",\n  \"partySize\": 6,\n  \"status\": \"WITHDRAWN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "D3 Add shift to waiter (expect 200, second time 409)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/{{waiterMutesi}}/shifts/{{shiftNight}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiters",
+                "{{waiterMutesi}}",
+                "shifts",
+                "{{shiftNight}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "D3 Unknown shift (expect 404 That shift does not exist)",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/{{waiterMutesi}}/shifts/00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiters",
+                "{{waiterMutesi}}",
+                "shifts",
+                "00000000-0000-0000-0000-000000000000"
+              ]
+            }
+          }
+        },
+        {
+          "name": "D4 Move waiter to table 4 (expect 200)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/{{waiterMutesi}}/dining-table?tableNumber=4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiters",
+                "{{waiterMutesi}}",
+                "dining-table"
+              ],
+              "query": [
+                {
+                  "key": "tableNumber",
+                  "value": "4"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D4 Table 2 is taken (expect 409)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/{{waiterMutesi}}/dining-table?tableNumber=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiters",
+                "{{waiterMutesi}}",
+                "dining-table"
+              ],
+              "query": [
+                {
+                  "key": "tableNumber",
+                  "value": "2"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D4 Unknown table number (expect 404)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/{{waiterMutesi}}/dining-table?tableNumber=99",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiters",
+                "{{waiterMutesi}}",
+                "dining-table"
+              ],
+              "query": [
+                {
+                  "key": "tableNumber",
+                  "value": "99"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "D4 Check C2: table 1 is now free",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dining-tables/free",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dining-tables",
+                "free"
               ]
             }
           }

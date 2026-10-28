@@ -19,14 +19,14 @@ import jakarta.persistence.Table;
 public class Shift {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
 
    @Column (name="name")
     private String name;
 
     @JsonIgnore 
-    @ManyToMany (mappedBy = "shift")
+    @ManyToMany (mappedBy = "shifts")
     private List<Waiter> waiters = new ArrayList<>();
 
     public UUID getId() {

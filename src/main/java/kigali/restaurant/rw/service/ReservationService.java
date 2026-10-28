@@ -26,8 +26,14 @@ public class ReservationService {
     public static final String FIELDS_REQUIRED = "reservation date, time slot and a party size greater than 0 are required";
     public static final String GUEST_ID_REQUIRED = "guest id is required";
     public static final String WAITER_ID_REQUIRED = "waiter is required";
-    public static final String INVALID_DATE = "start and end must be dates written as yyyy-MM-dd";
+    public static final String PAST_DATE = "Reservation date cannot be in the past";
+    public static final String WAITER_BOOKED = "Waiter is already booked on that date";
+    public static final String STATUS_UPDATED = "Reservation status pdated successfully";
+    public static final String CANNOT_CHANGE_PREFIX = "Cannot change status from ";
+    public static final String INVALID_DATE = "start adn end date must be dates written as yyyy-mm-dd";
     public static final String START_AFTER_END = "start date cannot be after the end date";
+
+     
 
     @Autowired
     private ReservationRepository reservationRepo;
@@ -105,7 +111,7 @@ public class ReservationService {
         if(waiterId != null){
             Optional<Waiter> getWaiter = waiterRepo.findById(waiterId);
             if(getWaiter.isEmpty()){
-                return GuestService.NOT_FOUND;
+                return WaiterService.NOT_FOUND;
             }
             waiter = getWaiter.get();
         }
@@ -134,5 +140,22 @@ public class ReservationService {
         return DELETED;
     }
 
+    //D2: satus flow. REQUESTED -> ACCEPTED or WITHDRAWN, accepted -> seated or withdrawn
+    //Seated and withdrawn are final
+    public String changeStatus(UUID id, ReservationStatus newStatus){
+        Optional<Reservation> getOne = reservationRepo.findById(id);
+        if(getOne.isEmpty()){
+            return NOT_FOUND;
+        }
+        Reservation reservation = getOne.get();
+        ReservationStatus current = reservation.getStatus();
+        boolean allowed = (current == ReservationStatus.REQUESTED && (newStatus == ReservationStatus.ACCEPTED || newStatus == ReservationStatus.WITHDRAWN)) || (current == ReservationStatus.ACCEPTED && (newStatus == ReservationStatus.SEATED || newStatus == ReservationStatus.WITHDRAWN));
+        if(!allowed){
+            return CANNOT_CHANGE_PREFIX + current + " to " + newStatus;
+        }
+        reservation.setStatus(newStatus);
+        reservationRepo.save(reservation);
+        return STATUS_UPDATED;
+    }
 
 }

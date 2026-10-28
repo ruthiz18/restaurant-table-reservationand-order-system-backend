@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,6 +72,19 @@ public class ReservationController {
         }
         List<Reservation> reservations = reservationService.getReservationsBetween(startDate, endDate);
         return new ResponseEntity<>(reservations, HttpStatus.OK);
+    }
+
+    //D2: status flow
+    @PatchMapping(value = "/{id}/status", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> changeStatus(@PathVariable UUID id, @RequestParam ReservationStatus status){
+        String returnedMessage = reservationService.changeStatus(id, status);
+        if(returnedMessage.equals(ReservationService.NOT_FOUND)){
+            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+        }
+        if(returnedMessage.startsWith(ReservationService.CANNOT_CHANGE_PREFIX)){
+            return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

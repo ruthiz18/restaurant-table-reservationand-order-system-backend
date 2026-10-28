@@ -2,6 +2,7 @@ package kigali.restaurant.rw.controller;
 
 import java.util.List;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.PatchMapping;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ import kigali.restaurant.rw.service.ShiftService;
 import kigali.restaurant.rw.service.WaiterService;
 
 @RestController
-@RequestMapping("/api/waiter")
+@RequestMapping("/api/waiters")
 public class WaiterController {
 
     @Autowired
@@ -42,6 +43,42 @@ public class WaiterController {
     public ResponseEntity<?> getAllWaiters(){
         List<Waiter> waiters = waiterService.getAllWaiters();
         return new ResponseEntity<>(waiters, HttpStatus.OK);
+    }
+
+    //C1: waiters by shift
+    @GetMapping(value = "/by-shift", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getWaitersByShift(@RequestParam String name){
+        if(name.isBlank()){
+            return new ResponseEntity<>(ShiftService.NAME_REQUIRED, HttpStatus.BAD_REQUEST);
+        }
+        List<Waiter> waiters = waiterService.getWaitersByShift(name);
+        return new ResponseEntity<>(waiters, HttpStatus.OK);
+    }
+
+    //D3: add one shift to a waiter
+    @PutMapping(value = "/{waiterId}/shifts/{shiftId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> addShift(@PathVariable UUID waiterId, @PathVariable UUID shiftId){
+        String returnedMessage = waiterService.addShift(waiterId, shiftId);
+        if(returnedMessage.equals(WaiterService.NOT_FOUND) || returnedMessage.equals(WaiterService.SHIFT_NOT_FOUND)){
+            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+        }
+        if(returnedMessage.equals(WaiterService.ALREADY_HAS_SHIFT)){
+            return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
+    }
+
+    //D4: move a waiter to another dining table
+    @PatchMapping(value = "/{waiterId}/dining-table", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> changeDiningTable(@PathVariable UUID waiterId, @RequestParam int tableNumber){
+        String returnedMessage = waiterService.changeDiningTable(waiterId, tableNumber);
+        if(returnedMessage.equals(WaiterService.NOT_FOUND) || returnedMessage.equals(WaiterService.TABLE_NUMBER_NOT_FOUND)){
+            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+        }
+        if(returnedMessage.equals(WaiterService.TABLE_TAKEN)){
+            return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

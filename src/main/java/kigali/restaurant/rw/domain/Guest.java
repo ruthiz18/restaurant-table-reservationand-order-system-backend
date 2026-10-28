@@ -21,13 +21,13 @@ public class Guest {
     private String firstName;
 
     @Column (name="last_name")
-    public String lastName;
+    private String lastName;
 
-    @Column (name="phone")
-    public String phone;
+    @Column (name="phone", unique = true)
+    private String phone;
 
     @Column (name="email")
-    public String email;
+    private String email;
 
     public UUID getId(){
         return id;

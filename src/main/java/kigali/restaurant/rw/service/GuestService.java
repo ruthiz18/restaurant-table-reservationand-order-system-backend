@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import kigali.restaurant.rw.domain.Guest;
 import kigali.restaurant.rw.repository.GuestRepository;
 import kigali.restaurant.rw.repository.ReservationRepository;
+import kigali.restaurant.rw.repository.WaiterRepository;
 
 @Service 
 public class GuestService{
@@ -27,6 +28,9 @@ public class GuestService{
 
     @Autowired 
     private ReservationRepository reservationRepo;
+
+    @Autowired 
+    private WaiterRepository waiterRepo;
 
     private boolean missingFields(Guest guest){
         return guest.getFirstName() == null || guest.getFirstName().isBlank() || guest.getLastName() == null || guest.getLastName().isBlank() || guest.getPhone() == null || guest.getPhone().isBlank();
@@ -74,6 +78,7 @@ public class GuestService{
         existing.setLastName(updatedGuest.getLastName());
         existing.setPhone(phone);
         existing.setEmail(updatedGuest.getEmail());
+        guestRepo.save(existing);
         return UPDATED;
     }
 
@@ -87,5 +92,13 @@ public class GuestService{
         guestRepo.deleteById(id);
         return DELETED;
 
+    }
+
+    //C4: guests of a waiter, null when the waiter does not exist
+    public List<Guest> getGuestsOfWaiter(UUID waiterId){
+        if(!waiterRepo.existsById(waiterId)){
+            return null;
+        }
+        return guestRepo.findGuestsOfWaiter(waiterId);
     }
 }

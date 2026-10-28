@@ -17,7 +17,7 @@ public class DiningTableService {
     public static final String SAVED = "Dining table saved successfully";
     public static final String UPDATED = "Dining table updated successfully";
     public static final String DELETED = "Dining table deleted successfully";
-    public static final String NOT_FOUND = "Dining table not found";
+    public static final String NOT_FOUND = "The dining table with that id does not exist";
     public static final String NUMBER_REQUIRED = "Dining table number is required";
     public static final String IN_USE = "The dining table is assigned to a waiter, remove it from the waiter first";
 
@@ -67,6 +67,11 @@ public class DiningTableService {
         }
         diningTableRepo.deleteById(id);
         return DELETED;
+    }
+
+    //C2: free dining tables
+    public List<DiningTable> getFreeDiningTables(){
+        return diningTableRepo.findFreeDiningTables();
     }
     
 }

@@ -17,7 +17,7 @@ public class ShiftService{
     public static final String SAVED = "Shift saved successfully";
     public static final String UPDATED = "Shift updated successfully";
     public static final String DELETED = "Shift deleted successfully";
-    public static final String NOT_FOUND = "Shift not found";
+    public static final String NOT_FOUND = "The shift with that id does not exist";
     public static final String NAME_REQUIRED = "Shift name is required";
     public static final String IN_USE = "The shift is held by waiters, remove it from them first";
 
@@ -68,5 +68,9 @@ public class ShiftService{
         return DELETED;
     }
 
-}
+    //C3: shift nobody holds
+    public List<Shift> getUnusedShifts(){
+        return shiftRepo.findUnusedShifts();
+    }
 
+}

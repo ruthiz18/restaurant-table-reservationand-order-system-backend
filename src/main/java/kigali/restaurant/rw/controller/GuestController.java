@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import kigali.restaurant.rw.domain.Guest;
 import kigali.restaurant.rw.service.GuestService;
+import kigali.restaurant.rw.service.WaiterService;
+
 
 @RestController
 @RequestMapping("/api/guests")
@@ -48,6 +50,16 @@ public class GuestController {
     @GetMapping(value = "/by-last-name", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getGuestsByLastName(@RequestParam String lastName){
         List<Guest> guests = guestService.getGuestsByLastName(lastName);
+        return new ResponseEntity<>(guests, HttpStatus.OK);
+    }
+
+    //C4: guests of a waiter
+    @GetMapping(value = "/of-waiter/{waiterId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getGuestOfWaiter(@PathVariable UUID waiterId){
+        List<Guest> guests = guestService.getGuestsOfWaiter(waiterId);
+        if(guests == null){
+            return new ResponseEntity<>(WaiterService.NOT_FOUND, HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(guests, HttpStatus.OK);
     }
 

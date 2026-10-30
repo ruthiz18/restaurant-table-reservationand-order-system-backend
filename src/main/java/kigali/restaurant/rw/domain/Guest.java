@@ -1,7 +1,7 @@
 package kigali.restaurant.rw.domain;
 
 import java.util.UUID;
- 
+   
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,28 +33,31 @@ public class Guest {
         return id;
     }
 
+
     public String getFirstName(){
         return firstName;
     }
 
     public void setFirstName(String firstName){
-        this.firstName = firstName;
+        this.firstName  =  firstName;
     }
 
-    public String getLastName(){
+
+    public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName){
+    public void setLastName(String lastName){  
         this.lastName = lastName;
     }
+
 
     public String getPhone(){
         return phone;
     }
 
-    public void setPhone(String phone){
-        this.phone = phone;
+    public void setPhone(String phone) {
+        this.phone  =  phone;  
     }
 
     public String getEmail(){
@@ -62,7 +65,7 @@ public class Guest {
     }
 
     public void setEmail(String email){
-        this.email = email;
+        this.email  =  email;  
     }
 
 }

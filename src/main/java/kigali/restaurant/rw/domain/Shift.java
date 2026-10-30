@@ -17,8 +17,8 @@ import jakarta.persistence.Table;
 @Entity 
 @Table (name="shift")
 public class Shift {
-    
-    @Id
+      
+    @Id  
     @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
 
@@ -27,13 +27,13 @@ public class Shift {
 
     @JsonIgnore 
     @ManyToMany (mappedBy = "shifts")
-    private List<Waiter> waiters = new ArrayList<>();
+    private List<Waiter> waiters  =  new ArrayList<>();
 
     public UUID getId() {
-        return id;
+        return id;  
     }
 
-    public String getName(){
+    public String getName(){  
         return name;
     }
 
@@ -44,8 +44,9 @@ public class Shift {
     public List<Waiter> getWaiters() {
         return waiters;
     }
+
     public void setWaiters(List<Waiter> waiters){
-        this.waiters = waiters;
+        this.waiters = waiters;  
     }
 
 }

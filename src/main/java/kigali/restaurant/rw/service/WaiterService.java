@@ -23,15 +23,15 @@ public class WaiterService {
     public static final String SAVED = "Waiter saved successfully";
     public static final String UPDATED = "Waiter updated successfully";
     public static final String DELETED = "Waiter deleted successfully";
-    public static final String NOT_FOUND = "The waiter with that id does not exist";
-    public static final String FIELDS_REQUIRED = "first name and last name are required";
-    public static final String SHIFT_NOT_FOUND = "That shift does not exist";
+    public static final String NOT_FOUND = "No waiter exists with that id";
+    public static final String FIELDS_REQUIRED = "Please give both a first name and a last name";
+    public static final String SHIFT_NOT_FOUND = "No shift exists with that id";
     public static final String ALREADY_HAS_SHIFT = "The waiter already has that shift";
     public static final String SHIFT_ADDED = "Shift added to the waiter";
-    public static final String TABLE_NUMBER_NOT_FOUND = "The dining table with that tableNumber does not exist";
+    public static final String TABLE_NUMBER_NOT_FOUND = "No dining table exists with that table number";
     public static final String TABLE_TAKEN = "That dining table is taken by another waiter";
     public static final String TABLE_CHANGED = "Dining table changed successfully";
-    public static final String IN_USE = "The waiter has reservations, delete them first";
+    public static final String IN_USE = "This waiter still has reservations, please delete them first";
 
     @Autowired
     private WaiterRepository waiterRepo;
@@ -46,20 +46,20 @@ public class WaiterService {
     private ReservationRepository reservationRepo;
 
     @Transactional
-    public String saveWaiter(Waiter waiter, UUID diningTableId, List<UUID> shiftIds){
+    public String saveWaiter(Waiter waiter,  UUID diningTableId,  List<UUID> shiftIds){
         if(waiter.getFirstName() == null || waiter.getFirstName().isBlank()
             || waiter.getLastName() == null || waiter.getLastName().isBlank()){
             return FIELDS_REQUIRED;
         }
-        DiningTable diningTable = null;
+        DiningTable diningTable  =  null;
         if(diningTableId != null){
-            Optional<DiningTable> getTable = diningTableRepo.findById(diningTableId);
+            Optional<DiningTable> getTable  =  diningTableRepo.findById(diningTableId);
             if(getTable.isEmpty()){
                 return DiningTableService.NOT_FOUND;
             }
             diningTable = getTable.get();
         }
-        List<Shift> shifts = new ArrayList<>();
+        List<Shift> shifts  =  new ArrayList<>();
         String problem = findShifts(shiftIds, shifts);
         if(problem != null){
             return problem;
@@ -98,13 +98,13 @@ public class WaiterService {
         }
         List<Shift> shifts = null;
         if(shiftIds != null){
-            shifts = new ArrayList<>();
+            shifts  =  new ArrayList<>();
             String problem = findShifts(shiftIds, shifts);
             if(problem != null){
                 return problem;
             }
         }
-        Waiter existing = getOne.get();
+        Waiter existing  =  getOne.get();
         existing.setFirstName(updatedWaiter.getFirstName());
         existing.setLastName(updatedWaiter.getLastName());
         existing.setPhone(updatedWaiter.getPhone());
@@ -134,7 +134,7 @@ public class WaiterService {
             return null;
         }
         for(UUID shiftId : ids){
-            Optional<Shift> one = shiftRepo.findById(shiftId);
+            Optional<Shift> one  =  shiftRepo.findById(shiftId);
             if(one.isEmpty()){
                 return ShiftService.NOT_FOUND;
             }
@@ -145,50 +145,50 @@ public class WaiterService {
         return null;
     }
 
-    //C1: waiters by shift name
+    // C1
     public List<Waiter> getWaitersByShift(String name){
         return waiterRepo.findByShiftName(name.trim());
     }
 
-    //D3: add on shift, keep the ones already there
-    @Transactional 
-    public String addShift(UUID waiterId, UUID shiftId){
-        Optional<Waiter> getWaiter = waiterRepo.findById(waiterId);
+    // D3
+    @Transactional
+    public String addShift(UUID waiterId,  UUID shiftId){
+        Optional<Waiter> getWaiter  =  waiterRepo.findById(waiterId);
         if(getWaiter.isEmpty()){
             return NOT_FOUND;
         }
-        Optional<Shift> getShift = shiftRepo.findById(shiftId);
+        Optional<Shift> getShift  =  shiftRepo.findById(shiftId);
         if(getShift.isEmpty()){
             return SHIFT_NOT_FOUND;
         }
-        Waiter waiter = getWaiter.get();
+        Waiter waiter  =  getWaiter.get();
+        // no duplicate shifts
         boolean alreadyHas = waiter.getShifts().stream().anyMatch(sh -> sh.getId().equals(shiftId));
         if(alreadyHas){
             return ALREADY_HAS_SHIFT;
         }
-        waiter.getShifts().add(getShift.get());;
+        waiter.getShifts().add(getShift.get());
         waiterRepo.save(waiter);
         return SHIFT_ADDED;
     }
 
-    //D4: move a waiter to another dining table, the old one becomes free
-    @Transactional 
+    // D4
+    @Transactional
     public String changeDiningTable(UUID waiterId, int tableNumber){
-        Optional<Waiter> getWaiter = waiterRepo.findById(waiterId);
+        Optional<Waiter> getWaiter  =  waiterRepo.findById(waiterId);
         if(getWaiter.isEmpty()){
             return NOT_FOUND;
         }
-        Optional<DiningTable> getTable = diningTableRepo.findByTableNumber(tableNumber);
+        Optional<DiningTable> getTable  =  diningTableRepo.findByTableNumber(tableNumber);
         if(getTable.isEmpty()){
             return TABLE_NUMBER_NOT_FOUND;
         }
-        if(waiterRepo.existsByDiningTableTableNumberAndIdNot(tableNumber, waiterId)){
+        if(waiterRepo.existsByDiningTableTableNumberAndIdNot(tableNumber,  waiterId)){
             return TABLE_TAKEN;
         }
-        Waiter waiter = getWaiter.get();
+        Waiter waiter  =  getWaiter.get();
         waiter.setDiningTable(getTable.get());
         waiterRepo.save(waiter);
         return TABLE_CHANGED;
     }
-
 }

@@ -28,57 +28,58 @@ public class DiningTableController {
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> saveDiningTable(@RequestBody DiningTable diningTable){
-        String returnedMessage = diningTableService.saveDiningTable(diningTable);
+        String returnedMessage  =  diningTableService.saveDiningTable(diningTable);
         if(returnedMessage.equals(DiningTableService.NUMBER_REQUIRED)){
-            return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);  
         }
-        return new ResponseEntity<>(returnedMessage, HttpStatus.CREATED);
+        return new ResponseEntity<>(returnedMessage,  HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getAllDiningTables(){
-        List<DiningTable> tables = diningTableService.getAllDiningTables();
-        return new ResponseEntity<>(tables, HttpStatus.OK);
+        List<DiningTable> tables  =  diningTableService.getAllDiningTables();  
+        return new ResponseEntity<>(tables,  HttpStatus.OK);
     }
 
-    //C2: free dining tables
+    // C2
     @GetMapping(value = "/free", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getFreeDiningTables(){
+    public ResponseEntity<?> getFreeDiningTables() {
         List<DiningTable> tables = diningTableService.getFreeDiningTables();
         return new ResponseEntity<>(tables, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getDiningTableById(@PathVariable UUID id){
-        DiningTable table = diningTableService.getDiningTableById(id);
+        DiningTable table  =  diningTableService.getDiningTableById(id);  
         if(table == null){
-            return new ResponseEntity<>(DiningTableService.NOT_FOUND, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(DiningTableService.NOT_FOUND,  HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(table, HttpStatus.OK);
     }
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateDiningTable(@PathVariable UUID id, @RequestBody DiningTable diningTable){
+    public ResponseEntity<?> updateDiningTable(@PathVariable UUID id, @RequestBody DiningTable diningTable) {
         String returnedMessage = diningTableService.updateDiningTable(id, diningTable);
         if(returnedMessage.equals(DiningTableService.NOT_FOUND)){
-            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(returnedMessage,  HttpStatus.NOT_FOUND);
         }
         if(returnedMessage.equals(DiningTableService.NUMBER_REQUIRED)){
             return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
+        return new ResponseEntity<>(returnedMessage,  HttpStatus.OK);
     }
 
+
     @DeleteMapping (value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> deleteDiningTable(@PathVariable UUID id){
-        String returnedMessage = diningTableService.deleteDiningTable(id);
+    public ResponseEntity<?> deleteDiningTable(@PathVariable UUID id) {
+        String returnedMessage  =  diningTableService.deleteDiningTable(id);
         if(returnedMessage.equals(DiningTableService.NOT_FOUND)){
-            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(returnedMessage,  HttpStatus.NOT_FOUND);
         }
         if(returnedMessage.equals(DiningTableService.IN_USE)){
             return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
+        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);  
     }
 
 

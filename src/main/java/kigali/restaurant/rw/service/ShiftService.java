@@ -1,10 +1,9 @@
 package kigali.restaurant.rw.service;
 
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,16 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 import kigali.restaurant.rw.domain.Shift;
 import kigali.restaurant.rw.repository.ShiftRepository;
 
-@Service 
+@Service
 public class ShiftService{
     public static final String SAVED = "Shift saved successfully";
     public static final String UPDATED = "Shift updated successfully";
     public static final String DELETED = "Shift deleted successfully";
-    public static final String NOT_FOUND = "The shift with that id does not exist";
+    public static final String NOT_FOUND = "No shift exists with that id";
     public static final String NAME_REQUIRED = "Shift name is required";
-    public static final String IN_USE = "The shift is held by waiters, remove it from them first";
+    public static final String IN_USE = "Some waiters still hold this shift, please remove it from them first";
 
-    @Autowired 
+    @Autowired
     private ShiftRepository shiftRepo;
 
     public String saveShift(Shift shift){
@@ -49,13 +48,13 @@ public class ShiftService{
         if(updatedShift.getName() == null || updatedShift.getName().isBlank()){
             return NAME_REQUIRED;
         }
-        Shift existing = getOne.get();
+        Shift existing  =  getOne.get();
         existing.setName(updatedShift.getName().trim());
         shiftRepo.save(existing);
         return UPDATED;
     }
 
-    @Transactional 
+    @Transactional
     public String deleteShift(UUID id){
         Optional<Shift> getOne = shiftRepo.findById(id);
         if(getOne.isEmpty()){
@@ -68,9 +67,8 @@ public class ShiftService{
         return DELETED;
     }
 
-    //C3: shift nobody holds
+    // C3
     public List<Shift> getUnusedShifts(){
         return shiftRepo.findUnusedShifts();
     }
-
 }

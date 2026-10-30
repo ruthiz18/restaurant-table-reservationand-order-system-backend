@@ -19,66 +19,70 @@ import org.springframework.web.bind.annotation.RestController;
 import kigali.restaurant.rw.domain.Shift;
 import kigali.restaurant.rw.service.ShiftService;
 
-@RestController 
+@RestController   
 @RequestMapping("/api/shifts")
 public class ShiftController {
     
-    @Autowired
+    @Autowired  
     private ShiftService shiftService;
 
     @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> saveShift(@RequestBody Shift shift){
+    public ResponseEntity<?> saveShift(@RequestBody Shift shift) {
         String returnedMessage = shiftService.saveShift(shift);
-        if(returnedMessage.equals(ShiftService.NAME_REQUIRED)){
+        if (returnedMessage.equals(ShiftService.NAME_REQUIRED)) {
             return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(returnedMessage, HttpStatus.CREATED);
+        return new ResponseEntity<>(returnedMessage, HttpStatus.CREATED);  
     }
 
     @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getAllShifts(){
-        List<Shift> shifts = shiftService.getAllShift();
+    public ResponseEntity<?> getAllShifts() {
+        List<Shift> shifts  =  shiftService.getAllShift();
         return new ResponseEntity<>(shifts, HttpStatus.OK);
-    }
+    }  
 
-    //C3: hsift nobody holds
+
+    // C3
     @GetMapping(value = "/unused", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUnusedShifts(){
         List<Shift> shifts = shiftService.getUnusedShifts();
-        return new ResponseEntity<>(shifts, HttpStatus.OK);
+        return new ResponseEntity<>(shifts,  HttpStatus.OK);
     }
+
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getShiftById(@PathVariable UUID id){
-        Shift shift = shiftService.getShiftById(id);
+        Shift shift  =  shiftService.getShiftById(id);
         if(shift == null){
             return new ResponseEntity<>(ShiftService.NOT_FOUND, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(shift, HttpStatus.OK);
-    }
+        return new ResponseEntity<>(shift,  HttpStatus.OK);
+    }  
 
     @PutMapping(value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateShift(@PathVariable UUID id, @RequestBody Shift shift){
-        String returnedMessage = shiftService.updateShift(id, shift);
+    public ResponseEntity<?> updateShift(@PathVariable UUID id,  @RequestBody Shift shift){
+        String returnedMessage =  shiftService.updateShift(id, shift);
         if(returnedMessage.equals(ShiftService.NOT_FOUND)){
-            return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(returnedMessage,  HttpStatus.NOT_FOUND);
         }
+
         if(returnedMessage.equals(ShiftService.NAME_REQUIRED)){
-            return new ResponseEntity<>(returnedMessage, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(returnedMessage,  HttpStatus.BAD_REQUEST);
         }
+
         return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
     }
-
+  
     @DeleteMapping(value = "/delete/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> deleteShift(@PathVariable UUID id){
-        String returnedMessage = shiftService.deleteShift(id);
+    public ResponseEntity<?> deleteShift(@PathVariable UUID id) {
+        String returnedMessage  =  shiftService.deleteShift(id);  
         if(returnedMessage.equals(ShiftService.NOT_FOUND)){
             return new ResponseEntity<>(returnedMessage, HttpStatus.NOT_FOUND);
         }
         if(returnedMessage.equals(ShiftService.IN_USE)){
             return new ResponseEntity<>(returnedMessage, HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(returnedMessage, HttpStatus.OK);
-    }
+        return new ResponseEntity<>(returnedMessage,  HttpStatus.OK);
+    }  
 
 }

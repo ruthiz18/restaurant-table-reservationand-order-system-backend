@@ -146,9 +146,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
+                  "const data = pm.response.json();",
                   "const map = {\"Morning\": \"shiftMorning\", \"Evening\": \"shiftEvening\", \"Weekend\": \"shiftWeekend\", \"Night\": \"shiftNight\"};",
-                  "rows.forEach(x => { const v = map[x.name]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "data.forEach(x => { const v = map[x.name]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -285,9 +285,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
+                  "const data = pm.response.json();",
                   "const map = {\"1\": \"table1\", \"2\": \"table2\", \"3\": \"table3\", \"4\": \"table4\"};",
-                  "rows.forEach(x => { const v = map[x.tableNumber]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "data.forEach(x => { const v = map[x.tableNumber]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -310,7 +310,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "save"
               ],
               "query": [
@@ -351,7 +351,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "save"
               ],
               "query": [
@@ -388,7 +388,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "save"
               ],
               "query": [
@@ -420,7 +420,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "all"
               ]
             }
@@ -431,9 +431,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
+                  "const data = pm.response.json();",
                   "const map = {\"Mutesi\": \"waiterMutesi\", \"Ingabire\": \"waiterIngabire\", \"Nkusi\": \"waiterNkusi\"};",
-                  "rows.forEach(x => { const v = map[x.lastName]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "data.forEach(x => { const v = map[x.lastName]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -597,9 +597,9 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
+                  "const data = pm.response.json();",
                   "const map = {\"0781234567\": \"guest0781234567\", \"0782345678\": \"guest0782345678\", \"0783456789\": \"guest0783456789\", \"0784567890\": \"guest0784567890\", \"0785678901\": \"guest0785678901\"};",
-                  "rows.forEach(x => { const v = map[x.phone]; if (v) pm.collectionVariables.set(v, x.id); });"
+                  "data.forEach(x => { const v = map[x.phone]; if (v) pm.collectionVariables.set(v, x.id); });"
                 ]
               }
             }
@@ -1030,9 +1030,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
-                  "const found = rows.find(x => x.name === 'Lunch');",
-                  "if (found) pm.collectionVariables.set('shiftId', found.id);"
+                  "const d = pm.response.json();",
+                  "if (d.length) pm.collectionVariables.set('shiftId', d[0].id);"
                 ]
               }
             }
@@ -1158,9 +1157,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
-                  "const found = rows.find(x => x.tableNumber === 5);",
-                  "if (found) pm.collectionVariables.set('tableId', found.id);"
+                  "const d = pm.response.json();",
+                  "if (d.length) pm.collectionVariables.set('tableId', d[0].id);"
                 ]
               }
             }
@@ -1253,7 +1251,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "save"
               ],
               "query": [
@@ -1285,7 +1283,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "all"
               ]
             }
@@ -1296,9 +1294,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
-                  "const found = rows.find(x => x.phone === '0788999999');",
-                  "if (found) pm.collectionVariables.set('waiterId', found.id);"
+                  "const d = pm.response.json();",
+                  "if (d.length) pm.collectionVariables.set('waiterId', d[0].id);"
                 ]
               }
             }
@@ -1316,7 +1313,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "{{waiterId}}"
               ]
             }
@@ -1339,7 +1336,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "update",
                 "{{waiterId}}"
               ],
@@ -1372,7 +1369,7 @@
               ],
               "path": [
                 "api",
-                "waiters",
+                "waiter",
                 "delete",
                 "{{waiterId}}"
               ]
@@ -1434,9 +1431,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
-                  "const found = rows.find(x => x.phone === '0789999999');",
-                  "if (found) pm.collectionVariables.set('guestId', found.id);"
+                  "const d = pm.response.json();",
+                  "if (d.length) pm.collectionVariables.set('guestId', d[0].id);"
                 ]
               }
             }
@@ -1572,9 +1568,8 @@
               "script": {
                 "type": "text/javascript",
                 "exec": [
-                  "const rows = pm.response.json();",
-                  "const found = rows.find(x => x.reservationDate === '2026-12-01' && x.timeSlot === '12:00-14:00');",
-                  "if (found) pm.collectionVariables.set('reservationId', found.id);"
+                  "const d = pm.response.json();",
+                  "if (d.length) pm.collectionVariables.set('reservationId', d[0].id);"
                 ]
               }
             }
@@ -1940,21 +1935,7 @@
               "mode": "raw",
               "raw": "{\n  \"reservationDate\": \"2026-12-24\",\n  \"timeSlot\": \"19:00-21:00\",\n  \"partySize\": 4,\n  \"status\": \"SEATED\"\n}"
             }
-          },
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "pm.sendRequest(pm.variables.replaceIn('{{baseUrl}}/api/reservations/all'), (err, res) => {",
-                  "    const found = res.json().find(x => x.reservationDate === '2026-12-24' && x.timeSlot === '19:00-21:00');",
-                  "    if (found) pm.collectionVariables.set('reservationId', found.id);",
-                  "});"
-                ]
-              }
-            }
-          ]
+          }
         },
         {
           "name": "D1 Same waiter, same date (expect 409)",
@@ -2275,6 +2256,531 @@
                 "api",
                 "dining-tables",
                 "free"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part E - table orders",
+      "item": [
+        {
+          "name": "E1 Order on a SEATED reservation (expect 201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/save?reservationId={{seatedReservationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "reservationId",
+                  "value": "{{seatedReservationId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishName\": \"Grilled tilapia\",\n  \"specialInstructions\": \"No chili\",\n  \"quantity\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "E1 Order on a not-SEATED reservation (expect 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/save?reservationId={{requestedReservationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "reservationId",
+                  "value": "{{requestedReservationId}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishName\": \"Grilled tilapia\",\n  \"specialInstructions\": \"No chili\",\n  \"quantity\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "E1 Unknown reservation (expect 404)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/save?reservationId=00000000-0000-0000-0000-000000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "reservationId",
+                  "value": "00000000-0000-0000-0000-000000000000"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dishName\": \"Grilled tilapia\",\n  \"specialInstructions\": \"No chili\",\n  \"quantity\": 2\n}"
+            }
+          }
+        },
+        {
+          "name": "E1 Get all (copy an id into tableOrderId)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "all"
+              ]
+            }
+          }
+        },
+        {
+          "name": "E2 Table orders of a guest, newest first",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/guest/0781234567",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "guest",
+                "0781234567"
+              ]
+            }
+          }
+        },
+        {
+          "name": "E2 Guest without orders (expect [])",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/guest/0000000000",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "guest",
+                "0000000000"
+              ]
+            }
+          }
+        },
+        {
+          "name": "E3 Delete reservation that has orders (expect 409)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/delete/{{seatedReservationId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "delete",
+                "{{seatedReservationId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "E3 Delete table order (expect 200)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/delete/{{tableOrderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "delete",
+                "{{tableOrderId}}"
+              ]
+            }
+          }
+        },
+        {
+          "name": "E3 Delete same table order again (expect 404)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/table-orders/delete/{{tableOrderId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "table-orders",
+                "delete",
+                "{{tableOrderId}}"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Part F - reports and bulk updates",
+      "item": [
+        {
+          "name": "F1 Reservations per status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/stats/by-status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "stats",
+                "by-status"
+              ]
+            }
+          }
+        },
+        {
+          "name": "F2 Waiter absent: cancel a day (expect N reservations cancelled)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/cancel-day?waiterId={{waiterMutesi}}&date=2026-11-10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "cancel-day"
+              ],
+              "query": [
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-11-10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "F2 Same call again (expect 0 reservations cancelled)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/cancel-day?waiterId={{waiterMutesi}}&date=2026-11-10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "cancel-day"
+              ],
+              "query": [
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-11-10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "F2 Unknown waiter (expect 404)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/cancel-day?waiterId=00000000-0000-0000-0000-000000000000&date=2026-11-10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "cancel-day"
+              ],
+              "query": [
+                {
+                  "key": "waiterId",
+                  "value": "00000000-0000-0000-0000-000000000000"
+                },
+                {
+                  "key": "date",
+                  "value": "2026-11-10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "F2 Bad date (expect 400)",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/cancel-day?waiterId={{waiterMutesi}}&date=10/11/2026",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "cancel-day"
+              ],
+              "query": [
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                },
+                {
+                  "key": "date",
+                  "value": "10/11/2026"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "F1 Check again after F2",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/stats/by-status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "stats",
+                "by-status"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bonus",
+      "item": [
+        {
+          "name": "Dashboard summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dashboard/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dashboard",
+                "summary"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Page 0, size 5, newest date first",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/page?page=0&size=5&sort=reservationDate,desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "0"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                },
+                {
+                  "key": "sort",
+                  "value": "reservationDate,desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Page 1, size 5",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/page?page=1&size=5&sort=reservationDate,desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "size",
+                  "value": "5"
+                },
+                {
+                  "key": "sort",
+                  "value": "reservationDate,desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Defaults (page 0, size 5, date ascending)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/page",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "page"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Bad sort field (expect 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/page?sort=password,desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "sort",
+                  "value": "password,desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Bad size (expect 400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/page?size=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "page"
+              ],
+              "query": [
+                {
+                  "key": "size",
+                  "value": "0"
+                }
               ]
             }
           }

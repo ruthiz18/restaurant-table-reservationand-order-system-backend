@@ -27,14 +27,14 @@ public class Reservation {
 
     @Enumerated (EnumType.STRING)
     @Column (name="status")
-    private ReservationStatus status;
+    private ReservationStatus status;  
 
     @Column (name="party_size")
     private int partySize;
 
     @Column (name="time_slot")
     private String timeSlot;
-
+  
     @ManyToOne
     @JoinColumn (name="guest_id")
     private Guest guest;
@@ -47,31 +47,34 @@ public class Reservation {
         return id;
     }
 
-    public LocalDate getReservationDate(){
+    public LocalDate getReservationDate() {
         return reservationDate;
     }
 
     public void setReservationDate(LocalDate reservationDate){
         this.reservationDate = reservationDate;
     }
-
-    public ReservationStatus getStatus(){
+  
+    public ReservationStatus getStatus() {
         return status;
     }
 
+
     public void setStatus(ReservationStatus status){
-        this.status = status;
-    }
+        this.status  =   status;
+    }  
+
 
     public int getPartySize(){
         return partySize;
     }
 
-    public void setPartySize(int partySize){
-        this.partySize = partySize;
+
+    public void setPartySize(int partySize) {
+        this.partySize  =   partySize;
     }
 
-    public String getTimeSlot(){
+    public String getTimeSlot() {
         return timeSlot;
     }
 
@@ -83,16 +86,17 @@ public class Reservation {
         return guest;
     }
 
-    public void setGuest(Guest guest){
-        this.guest = guest;
-    }
 
+    public void setGuest(Guest guest){  
+        this.guest  =  guest;
+    }
+  
     public Waiter getWaiter(){
         return waiter;
-    }
-
-    public void setWaiter(Waiter waiter){
-        this.waiter = waiter;
+    }  
+  
+    public void setWaiter(Waiter waiter){  
+        this.waiter  =  waiter;
     }
 
 

@@ -3,7 +3,7 @@ package kigali.restaurant.rw.service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,61 +12,62 @@ import kigali.restaurant.rw.repository.GuestRepository;
 import kigali.restaurant.rw.repository.ReservationRepository;
 import kigali.restaurant.rw.repository.WaiterRepository;
 
-@Service 
+@Service
 public class GuestService{
 
     public static final String SAVED = "Guest saved successfully";
     public static final String UPDATED = "Guest updated successfully";
     public static final String DELETED = "Guest deleted successfully";
-    public static final String NOT_FOUND = "The guest with that id does not exist";
-    public static final String FIELDS_REQUIRED = "firstname, last name and phone are required";
+    public static final String NOT_FOUND = "No guest exists with that id";
+    public static final String FIELDS_REQUIRED = "Please give a first name, a last name and a phone number";
     public static final String PHONE_TAKEN = "A guest with that phone already exists";
-    public static final String IN_USE = "The guest has reservations, delete them first";
+    public static final String IN_USE = "This guest still has reservations, please delete them first";
 
-    @Autowired 
+    @Autowired
     private GuestRepository guestRepo;
 
-    @Autowired 
+    @Autowired
     private ReservationRepository reservationRepo;
 
-    @Autowired 
+    @Autowired
     private WaiterRepository waiterRepo;
-
-    private boolean missingFields(Guest guest){
+  
+    private boolean missingFields(Guest guest) {
         return guest.getFirstName() == null || guest.getFirstName().isBlank() || guest.getLastName() == null || guest.getLastName().isBlank() || guest.getPhone() == null || guest.getPhone().isBlank();
     }
-
+  
     public String saveGuest(Guest guest){
-        if(missingFields(guest)){
-            return FIELDS_REQUIRED;
-        }
+        if (missingFields(guest)) {
+            return FIELDS_REQUIRED;  
+        }  
         guest.setPhone(guest.getPhone().trim());
-        if(guestRepo.findByPhone(guest.getPhone()).isPresent()){
+        if(guestRepo.findByPhone(guest.getPhone()).isPresent()){  
             return PHONE_TAKEN;
         }
         guestRepo.save(guest);
         return SAVED;
     }
 
-    public List<Guest> getAllGuest(){
+    public List<Guest> getAllGuest(){  
         return guestRepo.findAll();
     }
 
-    public List<Guest> getGuestsByLastName(String lastName){
+    public List<Guest> getGuestsByLastName(String lastName) {
         return guestRepo.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName.trim());
     }
+
 
     public Guest getGuestById(UUID id){
         return guestRepo.findById(id).orElse(null);
     }
 
-    public String updateGuest(UUID id, Guest updatedGuest){
-        Optional<Guest> getOne = guestRepo.findById(id);
+    public String updateGuest(UUID id,  Guest updatedGuest){
+        Optional<Guest> getOne  =  guestRepo.findById(id);
         if(getOne.isEmpty()){
             return NOT_FOUND;
         }
         if(missingFields(updatedGuest)){
-            return FIELDS_REQUIRED;
+            return FIELDS_REQUIRED;  
         }
         String phone = updatedGuest.getPhone().trim();
         Optional<Guest> samePhone = guestRepo.findByPhone(phone);
@@ -82,23 +83,25 @@ public class GuestService{
         return UPDATED;
     }
 
-    public String deleteGuest(UUID id){
+
+    public String deleteGuest(UUID id){  
         if(!guestRepo.existsById(id)){
             return NOT_FOUND;
         }
-        if(reservationRepo.existsByGuestId(id)){
+        if (reservationRepo.existsByGuestId(id)) {
             return IN_USE;
         }
         guestRepo.deleteById(id);
         return DELETED;
+    }  
 
-    }
-
-    //C4: guests of a waiter, null when the waiter does not exist
+    // C4
     public List<Guest> getGuestsOfWaiter(UUID waiterId){
+        // null means unknown waiter
         if(!waiterRepo.existsById(waiterId)){
             return null;
         }
         return guestRepo.findGuestsOfWaiter(waiterId);
     }
+
 }

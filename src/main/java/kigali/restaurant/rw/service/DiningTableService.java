@@ -1,9 +1,9 @@
 package kigali.restaurant.rw.service;
-
+  
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
- 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,24 +11,24 @@ import kigali.restaurant.rw.domain.DiningTable;
 import kigali.restaurant.rw.repository.DiningTableRepository;
 import kigali.restaurant.rw.repository.WaiterRepository;
 
-@Service 
+@Service
 public class DiningTableService {
 
     public static final String SAVED = "Dining table saved successfully";
     public static final String UPDATED = "Dining table updated successfully";
     public static final String DELETED = "Dining table deleted successfully";
-    public static final String NOT_FOUND = "The dining table with that id does not exist";
-    public static final String NUMBER_REQUIRED = "Dining table number is required";
-    public static final String IN_USE = "The dining table is assigned to a waiter, remove it from the waiter first";
+    public static final String NOT_FOUND = "No dining table exists with that id";
+    public static final String NUMBER_REQUIRED = "Please give a table number of at least 1";
+    public static final String IN_USE = "A waiter is still assigned to this dining table, please remove them first";
 
     @Autowired
     private DiningTableRepository diningTableRepo;
 
-    @Autowired 
+    @Autowired
     private WaiterRepository waiterRepo;
 
-    public String saveDiningTable(DiningTable diningTable){
-        if(diningTable.getTableNumber() <= 0){
+    public String saveDiningTable(DiningTable diningTable) {
+        if(diningTable.getTableNumber() <= 0){  
             return NUMBER_REQUIRED;
         }
         diningTableRepo.save(diningTable);
@@ -38,20 +38,20 @@ public class DiningTableService {
     public List<DiningTable> getAllDiningTables(){
         return diningTableRepo.findAll();
     }
-    
+
     public DiningTable getDiningTableById(UUID id){
         return diningTableRepo.findById(id).orElse(null);
-    }
+    }  
 
-    public String updateDiningTable(UUID id, DiningTable updatedTable){
+    public String updateDiningTable(UUID id,  DiningTable updatedTable){
         Optional<DiningTable> getOne = diningTableRepo.findById(id);
-        if(getOne.isEmpty()){
+        if(getOne.isEmpty()){  
             return NOT_FOUND;
-        }
+        }  
         if(updatedTable.getTableNumber() <= 0) {
             return NUMBER_REQUIRED;
         }
-        DiningTable existing = getOne.get();
+        DiningTable existing  =  getOne.get();
         existing.setTableNumber(updatedTable.getTableNumber());
         existing.setName(updatedTable.getName());
         diningTableRepo.save(existing);
@@ -59,19 +59,20 @@ public class DiningTableService {
     }
 
     public String deleteDiningTable(UUID id){
-        if(!diningTableRepo.existsById(id)){
+        if (!diningTableRepo.existsById(id)) {
             return NOT_FOUND;
         }
-        if(waiterRepo.existsByDiningTableId(id)){
+        if (waiterRepo.existsByDiningTableId(id)) {
             return IN_USE;
         }
         diningTableRepo.deleteById(id);
         return DELETED;
     }
 
-    //C2: free dining tables
+
+    // C2
     public List<DiningTable> getFreeDiningTables(){
         return diningTableRepo.findFreeDiningTables();
     }
-    
+
 }

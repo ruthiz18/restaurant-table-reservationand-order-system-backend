@@ -11,11 +11,11 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table (name="dining_table")
-public class DiningTable {
-
+public class DiningTable {  
+  
     @Id
     @GeneratedValue (strategy = GenerationType.UUID)
-    private UUID id;
+    private UUID id;  
 
     @Column (name="table_number")
     private int tableNumber;
@@ -31,18 +31,20 @@ public class DiningTable {
         return tableNumber;
     }   
 
+
     public void setTableNumber(int tableNumber) {
-        this.tableNumber = tableNumber;
+        this.tableNumber = tableNumber;  
     }
-    
+      
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        this.name = name;
-    }
+        this.name  =   name;
+    }  
 
+  
 
     
 }

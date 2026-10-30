@@ -18,7 +18,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table (name="waiter")
 public class Waiter {
-    
+      
     @Id 
     @GeneratedValue (strategy = GenerationType.UUID)
     private UUID id;
@@ -43,27 +43,29 @@ public class Waiter {
         inverseJoinColumns = @JoinColumn (name="shift_id")
     )
 
-    private List<Shift> shifts = new ArrayList<>();
+    private List<Shift> shifts  =  new ArrayList<>();
 
-    public UUID getId(){
+    public UUID getId() {
         return id;
     }
 
-    public String getFirstName(){
+    public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName){
-        this.firstName = firstName;
+    public void setFirstName(String firstName) {
+        this.firstName  =  firstName;
     }
+
 
     public String getLastName(){
         return lastName;
     }
 
+
     public void setLastName(String lastName){
         this.lastName = lastName;
-    }
+    }  
 
     public String getPhone(){
         return phone;
@@ -77,16 +79,17 @@ public class Waiter {
         return diningTable;
     }
 
+
     public void setDiningTable(DiningTable diningTable){
-        this.diningTable = diningTable;
+        this.diningTable  =  diningTable;
     }
 
     public List<Shift> getShifts(){
         return shifts;
     }
 
-    public void setShifts(List<Shift> shifts){
-        this.shifts = shifts;
+    public void setShifts(List<Shift> shifts) {
+        this.shifts  =  shifts;
     }
 
 }

@@ -1,0 +1,1493 @@
+{
+  "info": {
+    "name": "restaurant-table-reservationand-order-system-midterm",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Run folder '0. Seed (Step 0, run once)' once with the Collection Runner, then the requests in order. One request per requirement, named by its ID. A1 (entities) has no endpoint.",
+    "_postman_id": "04aba902-7b5d-49ed-b1e9-6eb1dfcd6069"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "0. Seed (Step 0, run once)",
+      "item": [
+        {
+          "name": "Shift Morning",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shifts/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shifts",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Morning\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Shift Evening",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shifts/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shifts",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Evening\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Shift Weekend",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shifts/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shifts",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Weekend\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Shift Night",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/shifts/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shifts",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Night\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Lookup shifts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shifts/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "shifts",
+                "all"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "const map = {\"Morning\": \"shiftMorning\", \"Evening\": \"shiftEvening\", \"Weekend\": \"shiftWeekend\", \"Night\": \"shiftNight\"};",
+                  "data.forEach(x => { const v = map[x.name]; if (v) pm.collectionVariables.set(v, x.id); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Table 1",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dining-tables/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dining-tables",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tableNumber\": 1,\n  \"name\": \"Table 1\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Table 2",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dining-tables/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dining-tables",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tableNumber\": 2,\n  \"name\": \"Table 2\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Table 3",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dining-tables/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dining-tables",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tableNumber\": 3,\n  \"name\": \"Table 3\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Table 4",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/dining-tables/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dining-tables",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tableNumber\": 4,\n  \"name\": \"Table 4\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Lookup tables",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/dining-tables/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "dining-tables",
+                "all"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "const map = {\"1\": \"table1\", \"2\": \"table2\", \"3\": \"table3\", \"4\": \"table4\"};",
+                  "data.forEach(x => { const v = map[x.tableNumber]; if (v) pm.collectionVariables.set(v, x.id); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Waiter Mutesi",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/save?diningTableId={{table1}}&shiftIds={{shiftMorning}}&shiftIds={{shiftEvening}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiter",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "diningTableId",
+                  "value": "{{table1}}"
+                },
+                {
+                  "key": "shiftIds",
+                  "value": "{{shiftMorning}}"
+                },
+                {
+                  "key": "shiftIds",
+                  "value": "{{shiftEvening}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Jean\",\n  \"lastName\": \"Mutesi\",\n  \"phone\": \"0788000001\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Waiter Ingabire",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/save?diningTableId={{table2}}&shiftIds={{shiftWeekend}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiter",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "diningTableId",
+                  "value": "{{table2}}"
+                },
+                {
+                  "key": "shiftIds",
+                  "value": "{{shiftWeekend}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Grace\",\n  \"lastName\": \"Ingabire\",\n  \"phone\": \"0788000002\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Waiter Nkusi",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/save?diningTableId={{table3}}&shiftIds={{shiftEvening}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiter",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "diningTableId",
+                  "value": "{{table3}}"
+                },
+                {
+                  "key": "shiftIds",
+                  "value": "{{shiftEvening}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Patrick\",\n  \"lastName\": \"Nkusi\",\n  \"phone\": \"0788000003\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Lookup waiters",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/waiters/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "waiter",
+                "all"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "const map = {\"Mutesi\": \"waiterMutesi\", \"Ingabire\": \"waiterIngabire\", \"Nkusi\": \"waiterNkusi\"};",
+                  "data.forEach(x => { const v = map[x.lastName]; if (v) pm.collectionVariables.set(v, x.id); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Guest Alice Keza",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Alice\",\n  \"lastName\": \"Keza\",\n  \"phone\": \"0781234567\",\n  \"email\": \"alice.keza@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Guest Bob Keza",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Bob\",\n  \"lastName\": \"Keza\",\n  \"phone\": \"0782345678\",\n  \"email\": \"bob.keza@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Guest Chantal Uwase",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Chantal\",\n  \"lastName\": \"Uwase\",\n  \"phone\": \"0783456789\",\n  \"email\": \"chantal.uwase@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Guest David Mugisha",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"David\",\n  \"lastName\": \"Mugisha\",\n  \"phone\": \"0784567890\",\n  \"email\": \"david.mugisha@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Guest Eric Habimana",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/save",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "save"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Eric\",\n  \"lastName\": \"Habimana\",\n  \"phone\": \"0785678901\",\n  \"email\": \"eric.habimana@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Lookup guests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/guests/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "guests",
+                "all"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "const map = {\"0781234567\": \"guest0781234567\", \"0782345678\": \"guest0782345678\", \"0783456789\": \"guest0783456789\", \"0784567890\": \"guest0784567890\", \"0785678901\": \"guest0785678901\"};",
+                  "data.forEach(x => { const v = map[x.phone]; if (v) pm.collectionVariables.set(v, x.id); });"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reservation 1 2026-10-20 ACCEPTED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0781234567}}&waiterId={{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0781234567}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-10-20\",\n  \"timeSlot\": \"12:00-14:00\",\n  \"partySize\": 4,\n  \"status\": \"ACCEPTED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 2 2026-10-20 WITHDRAWN",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0782345678}}&waiterId={{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0782345678}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-10-20\",\n  \"timeSlot\": \"18:00-20:00\",\n  \"partySize\": 2,\n  \"status\": \"WITHDRAWN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 3 2026-10-05 SEATED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0781234567}}&waiterId={{waiterIngabire}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0781234567}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterIngabire}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-10-05\",\n  \"timeSlot\": \"19:00-21:00\",\n  \"partySize\": 3,\n  \"status\": \"SEATED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 4 2026-10-12 SEATED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0783456789}}&waiterId={{waiterNkusi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0783456789}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterNkusi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-10-12\",\n  \"timeSlot\": \"13:00-15:00\",\n  \"partySize\": 5,\n  \"status\": \"SEATED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 5 2026-10-25 REQUESTED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0781234567}}&waiterId={{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0781234567}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-10-25\",\n  \"timeSlot\": \"20:00-22:00\",\n  \"partySize\": 2,\n  \"status\": \"REQUESTED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 6 2026-10-30 ACCEPTED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0784567890}}&waiterId={{waiterIngabire}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0784567890}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterIngabire}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-10-30\",\n  \"timeSlot\": \"12:00-14:00\",\n  \"partySize\": 6,\n  \"status\": \"ACCEPTED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 7 2026-11-03 REQUESTED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0785678901}}&waiterId={{waiterNkusi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0785678901}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterNkusi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-11-03\",\n  \"timeSlot\": \"18:00-20:00\",\n  \"partySize\": 2,\n  \"status\": \"REQUESTED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 8 2026-11-10 SEATED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0784567890}}&waiterId={{waiterMutesi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0784567890}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterMutesi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-11-10\",\n  \"timeSlot\": \"19:00-21:00\",\n  \"partySize\": 4,\n  \"status\": \"SEATED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 9 2026-11-15 WITHDRAWN",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0783456789}}&waiterId={{waiterIngabire}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0783456789}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterIngabire}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-11-15\",\n  \"timeSlot\": \"13:00-15:00\",\n  \"partySize\": 3,\n  \"status\": \"WITHDRAWN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Reservation 10 2026-11-22 ACCEPTED",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0782345678}}&waiterId={{waiterNkusi}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "save"
+              ],
+              "query": [
+                {
+                  "key": "guestId",
+                  "value": "{{guest0782345678}}"
+                },
+                {
+                  "key": "waiterId",
+                  "value": "{{waiterNkusi}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reservationDate\": \"2026-11-22\",\n  \"timeSlot\": \"20:00-22:00\",\n  \"partySize\": 8,\n  \"status\": \"ACCEPTED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Lookup reservations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reservations/all",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reservations",
+                "all"
+              ]
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.response.json();",
+                  "const seated = data.find(r => r.status === 'SEATED' && r.reservationDate === '2026-10-05');",
+                  "const requested = data.find(r => r.status === 'REQUESTED' && r.reservationDate === '2026-10-25');",
+                  "if (seated) pm.collectionVariables.set('seatedReservationId', seated.id);",
+                  "if (requested) pm.collectionVariables.set('requestedReservationId', requested.id);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "A2",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0781234567}}&waiterId={{waiterMutesi}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "guestId",
+              "value": "{{guest0781234567}}"
+            },
+            {
+              "key": "waiterId",
+              "value": "{{waiterMutesi}}"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"reservationDate\": \"2026-12-01\",\n  \"timeSlot\": \"12:00-14:00\",\n  \"partySize\": 2,\n  \"status\": \"REQUESTED\"\n}"
+        }
+      }
+    },
+    {
+      "name": "B1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/guests/by-last-name?lastName=keza",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "guests",
+            "by-last-name"
+          ],
+          "query": [
+            {
+              "key": "lastName",
+              "value": "keza"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "B2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/by-status?status=REQUESTED",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "by-status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "REQUESTED"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "B3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/between?start=2026-10-01&end=2026-10-31",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "between"
+          ],
+          "query": [
+            {
+              "key": "start",
+              "value": "2026-10-01"
+            },
+            {
+              "key": "end",
+              "value": "2026-10-31"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "C1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/waiters/by-shift?name=even",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "waiters",
+            "by-shift"
+          ],
+          "query": [
+            {
+              "key": "name",
+              "value": "even"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "C2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/dining-tables/free",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "dining-tables",
+            "free"
+          ]
+        }
+      }
+    },
+    {
+      "name": "C3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/shifts/unused",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "shifts",
+            "unused"
+          ]
+        }
+      }
+    },
+    {
+      "name": "C4",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/guests/of-waiter/{{waiterMutesi}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "guests",
+            "of-waiter",
+            "{{waiterMutesi}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "D1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/save?guestId={{guest0781234567}}&waiterId={{waiterMutesi}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "guestId",
+              "value": "{{guest0781234567}}"
+            },
+            {
+              "key": "waiterId",
+              "value": "{{waiterMutesi}}"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"reservationDate\": \"2020-01-01\",\n  \"timeSlot\": \"12:00-14:00\",\n  \"partySize\": 2\n}"
+        }
+      }
+    },
+    {
+      "name": "D2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/{{requestedReservationId}}/status?status=ACCEPTED",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "{{requestedReservationId}}",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "ACCEPTED"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "D3",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/waiters/{{waiterMutesi}}/shifts/{{shiftNight}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "waiters",
+            "{{waiterMutesi}}",
+            "shifts",
+            "{{shiftNight}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "D4",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/waiters/{{waiterMutesi}}/dining-table?tableNumber=4",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "waiters",
+            "{{waiterMutesi}}",
+            "dining-table"
+          ],
+          "query": [
+            {
+              "key": "tableNumber",
+              "value": "4"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "E1",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/table-orders/save?reservationId={{seatedReservationId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "table-orders",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "reservationId",
+              "value": "{{seatedReservationId}}"
+            }
+          ]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"dishName\": \"Grilled tilapia\",\n  \"specialInstructions\": \"No chili\",\n  \"quantity\": 2\n}"
+        }
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const d = pm.response.json();",
+              "if (d.id) pm.collectionVariables.set('tableOrderId', d.id);"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "E2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/table-orders/guest/0781234567",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "table-orders",
+            "guest",
+            "0781234567"
+          ]
+        }
+      }
+    },
+    {
+      "name": "E3",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/table-orders/delete/{{tableOrderId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "table-orders",
+            "delete",
+            "{{tableOrderId}}"
+          ]
+        }
+      }
+    },
+    {
+      "name": "F1",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/stats/by-status",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "stats",
+            "by-status"
+          ]
+        }
+      }
+    },
+    {
+      "name": "F2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/cancel-day?waiterId={{waiterMutesi}}&date=2026-11-10",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "cancel-day"
+          ],
+          "query": [
+            {
+              "key": "waiterId",
+              "value": "{{waiterMutesi}}"
+            },
+            {
+              "key": "date",
+              "value": "2026-11-10"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Bonus 1 Dashboard",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/dashboard/summary",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "dashboard",
+            "summary"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Bonus 2 Reservations page",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/reservations/page?page=0&size=5&sort=reservationDate,desc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "reservations",
+            "page"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "5"
+            },
+            {
+              "key": "sort",
+              "value": "reservationDate,desc"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
